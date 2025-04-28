@@ -1,0 +1,13 @@
+[package]
+name = "html_to_pdf_adapter_pdf_min"
+version.workspace = true
+authors.workspace = true
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Provides an adapter that implements html_to_pdf's trait using pdf-min."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+html_to_pdf = { path = "../html_to_pdf" }
+pdf-min = "0.1.12"

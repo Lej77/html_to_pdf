@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "chromiumoxide",
+        "itext",
+        "weasy",
+        "Wkhtml",
+        "wkhtmltopdf"
+    ],
+    "rust-analyzer.linkedProjects": [
+        "Cargo.toml",
+    ]
+}

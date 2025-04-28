@@ -1,0 +1,13 @@
+[package]
+name = "html_to_pdf"
+version.workspace = true
+authors.workspace = true
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Provides traits to abstract over different HTML to PDF conversion methods."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+pipe = "0.4.0" # Can be used to easier stream data.
+

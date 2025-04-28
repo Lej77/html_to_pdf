@@ -1,0 +1,16 @@
+[package]
+name = "wkhtml_runner"
+version = "0.1.0"
+authors = ["Lej77 <31554212+Lej77@users.noreply.github.com>"]
+edition = "2018"
+description = """
+Links to wkhmtl directly and uses IPC to communicate with the main program.
+"""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wkhtml_link = { path = "../wkhtml_link", features = ["should_link"] }
+
+[workspace]
+# Ensure this isn't included in the workspace since it needs to be compiled at the same time as the workspace.

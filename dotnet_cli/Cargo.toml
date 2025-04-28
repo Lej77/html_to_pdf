@@ -1,0 +1,12 @@
+[package]
+name = "dotnet_cli"
+version.workspace = true
+authors.workspace = true
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+default = []
+
+[dependencies]

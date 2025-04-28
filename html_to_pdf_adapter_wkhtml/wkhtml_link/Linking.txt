@@ -1,0 +1,21 @@
+The "wkhtmltopdf" crate needs to dynamically link to the "wkhtmltox" library. The version of the library should match
+what is specified in the "wkhtmltopdf" create's docs (for v0.3.0 and v0.4.0 the v0.12.3 library should be used).
+
+
+# Library downloads
+https://github.com/wkhtmltopdf/wkhtmltopdf/releases/0.12.3
+
+
+Simply extract the downloaded file with something like 7zip and it should have the following content:
+* "bin/wkhtmltox" (about 30 MB)
+    - The dynamic library that must be present when the rust program is started or it will exit with a link error.
+* "bin/wkhtmltopdf" (about 30 MB)
+    - Standalone program to produce pdf files from html files.
+* "include/"
+    - Headers that were used with bindgen to produce the rust crate.
+* "lib/wkhtmltox.lib" (about 100 kB)
+    - Needed at rust program compile time.
+
+
+
+

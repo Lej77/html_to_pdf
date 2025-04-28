@@ -1,0 +1,62 @@
+[package]
+name = "html_to_pdf-cli"
+version.workspace = true
+authors.workspace = true
+license = "AGPL-3.0" # If "wk_html_to_pdf_include_dll" and "c_sharp_framework_conversion_include_exe" features are disabled then actually: "MIT OR Apache-2.0"
+edition = "2021"
+
+[[bin]]
+name = "html-to-pdf"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+default = [
+    "wk_html_to_pdf",
+    "wk_html_to_pdf_include_dll",
+    "wk_html_to_pdf_compression",
+    "pdf_min_conversion",
+    "chromiumoxide_conversion",
+    "dotnet_framework_conversion",
+    "dotnet_framework_conversion_include_exe",
+    "dotnet_conversion",
+    "dotnet_conversion_include_exe",
+    "dotnet_conversion_compression",
+]
+
+# Basic support for using wkhtml as a library. Requires ".dll" file to be present or the conversion will return an error.
+wk_html_to_pdf = ["dep:html_to_pdf_adapter_wkhtml"]
+# Link directly to the wkhtml library (".dll") file. If the file isn't present then this program won't start.
+wk_html_to_pdf_link = ["wk_html_to_pdf", "html_to_pdf_adapter_wkhtml?/should_link"]
+# Include the wkhtml library (".dll") file inside this binary (will increase binary size).
+wk_html_to_pdf_include_dll = ["wk_html_to_pdf", "html_to_pdf_adapter_wkhtml?/should_include_dll"]
+# Compress files that are included in the binary. (Currently only affects the ".dll" file since that is much larger.)
+wk_html_to_pdf_compression = ["wk_html_to_pdf", "html_to_pdf_adapter_wkhtml?/compression"]
+
+# Include the `pdf-min` crate for HTML to PDF conversion.
+pdf_min_conversion = ["dep:html_to_pdf_adapter_pdf_min"]
+
+# Support using Chrome to convert HTML to PDF.
+chromiumoxide_conversion = ["dep:html_to_pdf_adapter_chromiumoxide"]
+
+# Support conversion using CLI program using the legacy .Net Framework iText library. (Windows only and requires .Net runtime to be installed.)
+dotnet_framework_conversion = ["dep:html_to_pdf_adapter_dotnet_framework_itext"]
+dotnet_framework_conversion_include_exe = ["html_to_pdf_adapter_dotnet_framework_itext?/include_exe"]
+
+# Support conversion using CLI program using the .Net iText library.
+dotnet_conversion = ["dep:html_to_pdf_adapter_dotnet_itext"]
+dotnet_conversion_include_exe = ["html_to_pdf_adapter_dotnet_itext?/include_exe"]
+dotnet_conversion_compression = ["html_to_pdf_adapter_dotnet_itext?/compression"]
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+eyre = "0.6.0"
+color-eyre = "0.6.2"
+
+html_to_pdf = { path = "../../html_to_pdf" }
+html_to_pdf_adapter_wkhtml = { path = "../../html_to_pdf_adapter_wkhtml/wkhtml", optional = true }
+html_to_pdf_adapter_pdf_min = { path = "../../html_to_pdf_adapter_pdf_min", optional = true }
+html_to_pdf_adapter_chromiumoxide = { path = "../../html_to_pdf_adapter_chromiumoxide", optional = true }
+html_to_pdf_adapter_dotnet_framework_itext = { path = "../../html_to_pdf_adapter_dotnet_framework_itext", optional = true }
+html_to_pdf_adapter_dotnet_itext = { path = "../../html_to_pdf_adapter_dotnet_itext", optional = true }

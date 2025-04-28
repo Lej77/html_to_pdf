@@ -1,0 +1,33 @@
+[package]
+name = "html_to_pdf_adapter_dotnet_itext"
+version.workspace = true
+authors.workspace = true
+publish = false
+license = "AGPL-3.0" # Or if the "include_exe" feature is disabled then: "MIT OR Apache-2.0"
+edition = "2021"
+description = """
+Uses a C# .Net program that uses the iText library to convert HTML to a PDF.
+"""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+# Don't connect the spawned program to any terminal window.
+windows-gui = []
+
+# Embed the .Net Console executable inside the build program.
+# This will distribute the .Net iText library: https://www.nuget.org/packages/itextsharp.xmlworker that uses the GNU Affero General Public License
+include_exe = ["dep:dotnet_cli"]
+
+# Compress the included executable.
+compression = ["dep:include-flate"]
+
+[dependencies]
+html_to_pdf = { path = "../html_to_pdf" }
+eyre = "0.6.0"
+
+# Used to compress included exe file:
+include-flate = { optional = true, version = "0.1.3", features = ["stable"] }
+
+[build-dependencies]
+dotnet_cli = { path = "../dotnet_cli", optional = true }

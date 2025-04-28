@@ -1,0 +1,17 @@
+[package]
+name = "html_to_pdf_adapter_weasy_print"
+version.workspace = true
+authors.workspace = true
+license = "BSD-3-Clause"
+edition = "2018"
+description = """
+Include "WeasyPrint" PDF converter and extract it at runtime to allow shelling out to it.
+"""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+zip = "2.0.0"
+
+html_to_pdf = { path = "../html_to_pdf" }
+eyre = "0.6.0"

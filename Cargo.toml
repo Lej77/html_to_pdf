@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = [
+    "html_to_pdf",
+    "html_to_pdf_adapter_chromiumoxide",
+    "html_to_pdf_adapter_dotnet_framework_itext",
+    "html_to_pdf_adapter_dotnet_itext",
+    "html_to_pdf_adapter_pdf_min",
+    "html_to_pdf_adapter_weasy_print",
+    "html_to_pdf_adapter_wkhtml/wkhtml",
+    "examples/html_to_pdf-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+authors = ["Lej77 <31554212+Lej77@users.noreply.github.com>"]

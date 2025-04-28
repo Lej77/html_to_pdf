@@ -1,0 +1,37 @@
+[package]
+name = "html_to_pdf_adapter_wkhtml"
+version.workspace = true
+authors.workspace = true
+license = "LGPL-3.0" # If "should_include_dll" feature is disabled then actually: MIT OR Apache-2.0
+edition = "2021"
+build = "build.rs"
+description = """
+A wrapper around wkhtml (LGPLv3) that abstract away different ways of interacting with it.
+
+Note that the wkhtmltopdf GitHub repository has been archived by the owner on Jan 2, 2023.
+"""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+# Indicates that we should link directly to the library. If the ".dll" file isn't present the program won't start.
+should_link = ["dep:wkhtml_link", "wkhtml_link?/should_link"]
+# We can provide a runner without including the ".dll" file. This allows gracefully failing if the library file isn't present.
+should_include_dll = ["dep:wkhtml_link"]
+compression = ["wkhtml_link?/compression"]
+windows-gui = []
+
+[dependencies]
+eyre = "0.6.0"
+crossbeam = "0.8.1"
+html_to_pdf = { path = "../../html_to_pdf" }
+
+# If `should_link` is disabled then we need to write files to a temporary location:
+tempfile = "3.3.0"
+
+[target.'cfg(windows)'.dependencies]
+wkhtml_link = { optional = true, path = "../wkhtml_link" }
+
+[target.'cfg(windows)'.build-dependencies]
+serde = { version = "1.0.115", features = ["derive"] }
+serde_json = "1.0.57"

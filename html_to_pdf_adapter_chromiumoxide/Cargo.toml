@@ -1,0 +1,30 @@
+[package]
+name = "html_to_pdf_adapter_chromiumoxide"
+version.workspace = true
+authors.workspace = true
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Provides an adapter that implements html_to_pdf's trait using chromiumoxide."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+default = ["tokio-runtime", "bytes"]
+bytes = ["chromiumoxide/bytes"]
+fetcher = ["chromiumoxide/fetcher"]
+async-std-runtime = ["dep:async-std", "chromiumoxide/async-std-runtime"]
+tokio-runtime = ["dep:tokio", "chromiumoxide/tokio-runtime", "hyper-util/tokio"]
+
+[dependencies]
+html_to_pdf = { path = "../html_to_pdf" }
+# chromiumoxide = { version = "0.7", default-features = false }
+# Workaround for https://github.com/mattsse/chromiumoxide/issues/243
+chromiumoxide = { git = "https://github.com/mattsse/chromiumoxide", default-features = false, rev = "c955148a66693192de1c7668ab4a7a8cc991d804" }
+async-std = { version = "1", optional = true }
+tokio = { version = "1", optional = true, features = ["rt-multi-thread", "net"] }
+futures-core = "0.3.30"
+futures-util = "0.3"
+hyper = { version = "1", features = ["server"] } # Start simple local HTTP server so that chrome can read the html content
+hyper-util = { version = "0.1", features = ["server-auto"] }
+bytes = "1"
+http-body-util = "0.1"
